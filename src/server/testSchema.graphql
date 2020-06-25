@@ -1,0 +1,6 @@
+query testSchema {
+    category(id: "Q2F0ZWdvcnlOb2RlOjEw" slug: "fortnite") {
+        id
+        name
+    }
+}

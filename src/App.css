@@ -1,0 +1,25 @@
+@import '~antd/dist/antd.css';
+.App {
+  text-align: center;
+}
+
+
+.content{
+  background: #00181D;
+  box-shadow: inset -15px 65px 50px -50px rgba(19, 194, 194, 0.5);
+}
+
+.container {
+  max-width: 1106px;
+}
+
+.main-layout {
+  position: relative;
+}
+
+
+
+
+
+
+

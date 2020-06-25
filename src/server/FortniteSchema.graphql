@@ -1,0 +1,48 @@
+fragment Children on CategoryNodeConnection {
+    edges{
+        node{
+            name
+            faq{
+                edges{
+                    node{
+                        question
+                    }
+                }
+            }
+        }
+    }
+}
+
+fragment Offers on OfferNodeConnection {
+    edges{
+        node{
+            faq{
+                edges{
+                    node{
+                        question
+                    }
+                }
+            }
+        }
+    }
+}
+
+query Fortnite {
+    category(id: "Q2F0ZWdvcnlOb2RlOjEw", slug: "fortnite"){
+        slug
+        name
+        children{
+            ...Children
+        }
+        offers{
+            ...Offers
+        }
+        faq{
+            edges{
+                node{
+                    question
+                }
+            }
+        }
+    }
+}

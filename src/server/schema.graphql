@@ -1,0 +1,49 @@
+type Query {
+    category(id: String, slug: String): CategoryNode
+}
+
+type CategoryNodeConnection {
+    edges: [CategoryNodeEdge]!
+}
+
+type CategoryNodeEdge {
+    node: CategoryNode
+}
+
+type CategoryNode implements Node{
+    id: ID!
+    name: String!
+    children (after: String, before: String, first: Int, last: Int): CategoryNodeConnection!
+    offers (before: String, after: String, first: Int, last: Int, category: ID): OfferNodeConnection!
+    faq(after: String, before: String, first: Int, last: Int): FaqNodeConnection!
+}
+
+type OfferNodeConnection {
+    edges: [OfferNodeEdge]!
+}
+
+type OfferNodeEdge {
+    node: OfferNode
+}
+
+type OfferNode {
+    faq(
+        before: String
+        after: String
+        first: Int
+        last: Int
+    ): FaqNodeConnection!
+}
+
+type FaqNodeConnection {
+    edges: [FaqNodeEdge]!
+}
+
+type FaqNodeEdge {
+    node: FaqNode
+}
+
+type FaqNode implements Node {
+    question: String!
+    offer: OfferNode
+}

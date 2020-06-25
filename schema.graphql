@@ -1,0 +1,808 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+"An object with an ID"
+interface Node {
+    "The ID of the object."
+    id: ID!
+}
+
+"Personal account"
+type AccountNode {
+    balance: Float!
+    lastUpdated: DateTime!
+    operations(after: String, before: String, first: Int, last: Int): AccountOperationNodeConnection!
+}
+
+"Account deposit/withdraw operation"
+type AccountOperationNode implements Node {
+    action: AccountOperationAction!
+    actionText: String
+    comments: String!
+    "The ID of the object."
+    id: ID!
+    operationDate: DateTime!
+    sum: Float!
+}
+
+type AccountOperationNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [AccountOperationNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `AccountOperationNode` and its cursor."
+type AccountOperationNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: AccountOperationNode
+}
+
+type AmountBreakdown {
+    discount: PayPalMoney
+    handling: PayPalMoney
+    insurance: PayPalMoney
+    itemTotal: PayPalMoney
+    shipping: PayPalMoney
+    shippingDiscount: PayPalMoney
+    taxTotal: PayPalMoney
+}
+
+"Set of avatar url"
+type AvatarNode {
+    "Big size (750x750 px). Can be empty."
+    big: String
+    "Small size (375x375 px)"
+    small: String
+}
+
+"Price in different currencies"
+type CalculatedPrice {
+    eur: Decimal
+    usd: Decimal
+}
+
+"Single category"
+type CategoryNode implements Node {
+    breadcrumbs: String
+    children(after: String, before: String, first: Int, last: Int): CategoryNodeConnection!
+    description: String
+    faq(after: String, before: String, first: Int, last: Int): FaqNodeConnection!
+    h1: String
+    headerPicture: String
+    "The ID of the object."
+    id: ID!
+    level: Int!
+    mainPagePicture: String
+    mainPagePictureMobile: String
+    minOfferPrice: Float!
+    name: String!
+    offerPicture: String
+    offers(after: String, before: String, category: ID, first: Int, last: Int): OfferNodeConnection!
+    parent: CategoryNode
+    seoDescription: String
+    seoTitle: String
+    size: Size
+    slug: String
+}
+
+type CategoryNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [CategoryNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `CategoryNode` and its cursor."
+type CategoryNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: CategoryNode
+}
+
+type ChangePassword {
+    ok: Boolean
+}
+
+type ConfirmEmail {
+    token: String
+    user: UserNode
+}
+
+type ConfirmResetPassword {
+    token: String
+    user: UserNode
+}
+
+"Creates an order"
+type CreateOrder {
+    order: OrderNode
+}
+
+"Creates an order"
+type CreateReview {
+    review: ReviewNode
+}
+
+type CreateUser {
+    user: UserNode
+}
+
+"Debugging information for the current query."
+type DjangoDebug {
+    "Executed SQL queries for this API query."
+    sql: [DjangoDebugSQL]
+}
+
+"Represents a single database query made to a Django managed DB."
+type DjangoDebugSQL {
+    "The Django database alias (e.g. 'default')."
+    alias: String!
+    "Duration of this database query in seconds."
+    duration: Float!
+    "Postgres connection encoding if available."
+    encoding: String
+    "Whether this database query was a SELECT."
+    isSelect: Boolean!
+    "Whether this database query took more than 10 seconds."
+    isSlow: Boolean!
+    "Postgres isolation level if available."
+    isoLevel: String
+    "JSON encoded database query parameters."
+    params: String!
+    "The raw SQL of this query, without params."
+    rawSql: String!
+    "The actual SQL sent to this database."
+    sql: String
+    "Start time of this database query."
+    startTime: Float!
+    "Stop time of this database query."
+    stopTime: Float!
+    "Postgres transaction ID if available."
+    transId: String
+    "Postgres transaction status if available."
+    transStatus: String
+    "The type of database being used (e.g. postrgesql, mysql, sqlite)."
+    vendor: String!
+}
+
+"Single question"
+type FaqNode implements Node {
+    answer: String!
+    category: CategoryNode
+    faqType: FaqItemFaqType!
+    "The ID of the object."
+    id: ID!
+    offer: OfferNode
+    question: String!
+}
+
+type FaqNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [FaqNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `FaqNode` and its cursor."
+type FaqNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: FaqNode
+}
+
+"Group of inputs"
+type InputGroupNode {
+    disposition: InputGroupDisposition!
+    inputs: [PriceInputNode!]!
+}
+
+"Sets of input groups"
+type InputGroupSet {
+    primary: [InputGroupNode]
+    secondary: [InputGroupNode]
+}
+
+type Mutation {
+    _debug: DjangoDebug
+    changePassword(newPassword: String!): ChangePassword
+    confirmEmail(token: String!, uid: String!): ConfirmEmail
+    confirmResetPassword(token: String!, uid: String!): ConfirmResetPassword
+    "Creates an order"
+    createReview(reviewData: ReviewInput!): CreateReview
+    createUser(email: String!, emailAgreement: Boolean, isBooster: Boolean, password: String!, referralCode: String, visibleName: String!): CreateUser
+    "Order is completed"
+    orderComplete(orderId: String!): OrderCompleted
+    "Creates an order"
+    orderCreate(orderData: OrderInput!): CreateOrder
+    "There is a problem with booster in this order"
+    orderProblemWithBooster(orderId: String!): ProblemWithBooster
+    "Marks PayPal transaction as cancelled"
+    paypalCancelled(
+        "PayPal token"
+        token: String!
+    ): PaypalCancelled
+    "Confirms PayPal transaction"
+    paypalConfirmed(
+        "PayPal payerid"
+        payerid: String!,
+        "PayPal token"
+        token: String!
+    ): PaypalConfirmed
+    "Starts PayPal transaction"
+    paypalStart(
+        "Url to redirect user if payment is cancelled"
+        cancelUrl: String!,
+        "Order to pay"
+        orderId: String!,
+        "Url to redirect user after payment"
+        returnUrl: String!
+    ): PaypalStart
+    "Refresh token"
+    refreshToken(token: String!): Refresh
+    resetPassword(email: String!): ResetPassword
+    "Get JSW token"
+    tokenAuth(email: String!, password: String!): ObtainJSONWebToken
+    uploadAvatar(file: Upload!): UploadAvatar
+    "Verify token"
+    verifyToken(token: String!): Verify
+}
+
+"Obtain JSON Web Token mutation"
+type ObtainJSONWebToken {
+    token: String
+}
+
+"Single offer"
+type OfferNode implements Node {
+    category: CategoryNode!
+    faq(after: String, before: String, first: Int, last: Int): FaqNodeConnection!
+    "The ID of the object."
+    id: ID!
+    priceCalculation: OfferPriceNode
+}
+
+type OfferNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [OfferNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `OfferNode` and its cursor."
+type OfferNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: OfferNode
+}
+
+"Offer price calculation"
+type OfferPriceNode {
+    inputGroups: InputGroupSet
+}
+
+"Order is completed"
+type OrderCompleted {
+    order: OrderNode
+}
+
+"Ordered item"
+type OrderItemNode {
+    id: ID
+    input: PriceInputNode
+    value: String
+    valueText: String
+}
+
+"Single order"
+type OrderNode implements Node {
+    comments: String
+    dateCreated: DateTime!
+    dateUpdated: DateTime!
+    discordLogin: String
+    "The ID of the object."
+    id: ID!
+    items: [OrderItemNode]
+    "Order number"
+    number: String
+    offer: OfferNode!
+    price: Float!
+    state: OrderState!
+}
+
+type OrderNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [OrderNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `OrderNode` and its cursor."
+type OrderNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: OrderNode
+}
+
+"The Relay compliant `PageInfo` type, containing data necessary to paginate this connection."
+type PageInfo {
+    "When paginating forwards, the cursor to continue."
+    endCursor: String
+    "When paginating forwards, are there more items?"
+    hasNextPage: Boolean!
+    "When paginating backwards, are there more items?"
+    hasPreviousPage: Boolean!
+    "When paginating backwards, the cursor to continue."
+    startCursor: String
+}
+
+type PayPalAddressDetails {
+    addressLine1: String
+    addressLine2: String
+    adminArea1: String
+    adminArea2: String
+    countryCode: String
+    postalCode: String
+}
+
+type PayPalApplePay {
+    card: PayPalCard
+}
+
+"Paypal card info"
+type PayPalCard {
+    brand: String
+    lastDigits: String
+    type: String
+}
+
+type PayPalMoney {
+    currencyCode: String
+    value: String
+}
+
+type PayPalWallet {
+    applePay: PayPalApplePay
+}
+
+"Paypal payer"
+type Payer {
+    address: PayPalAddressDetails
+    birthDate: String
+    emailAddress: String
+    name: PayerName
+    payerId: String
+    phone: PayerPhone
+    taxInfo: PayerTaxInfo
+}
+
+type PayerName {
+    givenName: String
+    surname: String
+}
+
+type PayerPhone {
+    phoneNumber: PayerPhoneNumber
+    phoneType: String
+}
+
+type PayerPhoneNumber {
+    nationalNumber: String
+}
+
+type PayerTaxInfo {
+    taxId: String
+    taxIdType: String
+}
+
+type PaymentInfo {
+    status: String
+    statusDetails: PaymentStatusDetails
+}
+
+type PaymentInstruction {
+    disbursementMode: String
+    platformFees: [PlatformFee]
+}
+
+"Paypal payment source"
+type PaymentSource {
+    card: PayPalCard
+    wallet: PayPalWallet
+}
+
+type PaymentStatusDetails {
+    reason: String
+}
+
+"Marks PayPal transaction as cancelled"
+type PaypalCancelled {
+    ok: Boolean
+}
+
+"Confirms PayPal transaction"
+type PaypalConfirmed {
+    ok: Boolean
+}
+
+"Paypal order details"
+type PaypalOrderDetails {
+    createTime: String
+    id: String
+    payer: Payer
+    paymentSource: PaymentSource
+    purchaseUnits: [PurchaseUnit]
+    status: String
+    updateTime: String
+}
+
+"Starts PayPal transaction"
+type PaypalStart {
+    "PayPal redirect url"
+    redirectUrl: String
+    "PayPal token"
+    token: String
+}
+
+type PlatformFee {
+    amount: PayPalMoney
+    payee: PurchaseUnitPayee
+}
+
+"Input for price calculation"
+type PriceInputNode {
+    inputType: PriceInputInputType!
+    maxValue: Float
+    minValue: Float
+    price: Float
+    priceType: FlagPriceType
+    reverse: Boolean
+    selections: [SelectionItem]
+    title: String!
+    varname: String!
+    widget: PriceInputWidget!
+}
+
+"There is a problem with booster in this order"
+type ProblemWithBooster {
+    order: OrderNode
+}
+
+"Paypal purchase unit"
+type PurchaseUnit {
+    amount: PurchaseUnitAmount
+    customId: String
+    description: String
+    id: String
+    invoiceId: String
+    items: [PurchaseUnitItem]
+    payee: PurchaseUnitPayee
+    paymentInstruction: PaymentInstruction
+    payments: PurchaseUnitPayments
+    referenceId: String
+    shipping: PurchaseUnitShipping
+    softDescriptor: String
+}
+
+type PurchaseUnitAmount {
+    breakdown: AmountBreakdown
+    currencyCode: String
+    value: String
+}
+
+type PurchaseUnitItem {
+    category: String
+    description: String
+    name: String
+    quantity: String
+    sku: String
+    tax: PayPalMoney
+    unitAmount: PayPalMoney
+}
+
+type PurchaseUnitPayee {
+    emailAddress: String
+    merchantId: String
+}
+
+type PurchaseUnitPayments {
+    authorizations: [PaymentInfo]
+    captures: [PaymentInfo]
+    refunds: [PaymentInfo]
+}
+
+type PurchaseUnitShipping {
+    address: PayPalAddressDetails
+    name: ShippingName
+}
+
+type Query {
+    _debug: DjangoDebug
+    "All categories"
+    allCategories(after: String, before: String, first: Int, last: Int, maxLevel: Float, minLevel: Float, parent: ID): CategoryNodeConnection
+    "All questions"
+    allFaq(after: String, before: String, category: String, faqType: String, first: Int, includeTree: Boolean, last: Int, offer: String): FaqNodeConnection
+    "All offers"
+    allOffers(after: String, before: String, category: ID, first: Int, last: Int): OfferNodeConnection
+    "All orders"
+    allOrders(after: String, before: String, booster: ID, customer: ID, first: Int, last: Int, state: String): OrderNodeConnection
+    "All reviews"
+    allReviews(after: String, before: String, category: String, first: Int, last: Int, offer: String): ReviewNodeConnection
+    "Single category"
+    category(id: String, slug: String): CategoryNode
+    "Information about current user"
+    me: UserNode
+    "The ID of the object"
+    offer(id: ID!): OfferNode
+    "Calculate offer price with specified set of options"
+    offerPrice(offerData: OfferInput!): CalculatedPrice
+    "The ID of the object"
+    order(id: ID!): OrderNode
+    "Get payment details"
+    paypalDetails(
+        "PayPal session token"
+        token: String!
+    ): PaypalOrderDetails
+}
+
+"Referral program info"
+type ReferralInfoNode implements Node {
+    code: String!
+    "The ID of the object."
+    id: ID!
+    registeredUsers(after: String, before: String, first: Int, last: Int): RegisteredUserNodeConnection!
+}
+
+type Refresh {
+    payload: GenericScalar
+    token: String
+}
+
+"Referral program info"
+type RegisteredUserNode implements Node {
+    bonus: Float!
+    dateJoined: DateTime!
+    "The ID of the object."
+    id: ID!
+    user: UserNode!
+}
+
+type RegisteredUserNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [RegisteredUserNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `RegisteredUserNode` and its cursor."
+type RegisteredUserNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: RegisteredUserNode
+}
+
+type ResetPassword {
+    email: String
+}
+
+"Single review"
+type ReviewNode implements Node {
+    content: String!
+    "The ID of the object."
+    id: ID!
+    reviewDate: DateTime!
+    stars: Int!
+    user: UserNode
+}
+
+type ReviewNodeConnection {
+    "Contains the nodes in this connection."
+    edges: [ReviewNodeEdge]!
+    "Pagination data for this connection."
+    pageInfo: PageInfo!
+}
+
+"A Relay edge containing a `ReviewNode` and its cursor."
+type ReviewNodeEdge {
+    "A cursor for use in pagination"
+    cursor: String!
+    "The item at the end of the edge"
+    node: ReviewNode
+}
+
+"Selection item"
+type SelectionItem {
+    "Text to show"
+    label: String
+    "Value"
+    value: String
+}
+
+type ShippingName {
+    fullName: String
+}
+
+type UploadAvatar {
+    avatar: AvatarNode
+}
+
+"user information"
+type UserNode implements Node {
+    account: AccountNode
+    "User avatar"
+    avatar: AvatarNode
+    boostedOrders(after: String, before: String, booster: ID, customer: ID, first: Int, last: Int, state: String): OrderNodeConnection!
+    dateJoined: DateTime!
+    email: String!
+    "The ID of the object."
+    id: ID!
+    isAnonymous: Boolean
+    "Designates whether the user is booster"
+    isBooster: Boolean!
+    orders(after: String, before: String, booster: ID, customer: ID, first: Int, last: Int, state: String): OrderNodeConnection!
+    referral: ReferralInfoNode
+    visibleName: String!
+}
+
+type Verify {
+    payload: GenericScalar
+}
+
+"An enumeration."
+enum AccountOperationAction {
+    "Manual correction"
+    CORRECTION
+    "Referral bonus"
+    REFERRAL_BONUS
+}
+
+"An enumeration."
+enum FaqItemFaqType {
+    "Category questions"
+    CATEGORY
+    "Questions for boosters"
+    FOR_BOOSTERS
+    "General questions"
+    GENERAL
+    "Offer questions"
+    OFFER
+}
+
+"An enumeration."
+enum FlagPriceType {
+    PERCENT
+    VALUE
+}
+
+"An enumeration."
+enum InputGroupDisposition {
+    "Primary"
+    PRIMARY
+    "Secondary"
+    SECONDARY
+}
+
+"An enumeration."
+enum OrderState {
+    "In progress, assigned to booster"
+    ASSIGNED
+    "Cancelled"
+    CANCELLED
+    "Completed"
+    COMPLETED
+    "New"
+    NEW
+    "Wait payment"
+    PAYMENT
+    "Problem with booster"
+    PROBLEM
+    "Waiting for booster assignment"
+    WAIT_ASSIGNMENT
+}
+
+"An enumeration."
+enum PriceInputInputType {
+    "Double Range"
+    DOUBLE_RANGE
+    "Flag"
+    FLAG
+    "Number"
+    NUMBER
+    "Range"
+    RANGE
+    "Range Selection"
+    RANGE_SELECTION
+    "Selection"
+    SELECTION
+}
+
+"An enumeration."
+enum PriceInputWidget {
+    "Checkbox"
+    CHECKBOX
+    "Double Slider"
+    DOUBLE_SLIDER
+    "Dropdown"
+    DROPDOWN
+    "Number"
+    NUMBER
+    "Radio"
+    RADIO_BUTTONS
+    "Slider"
+    SLIDER
+}
+
+"An enumeration."
+enum Size {
+    FOURTH
+    HALF
+    THIRD
+    WHOLE
+}
+
+"Offer and selected options"
+input OfferInput {
+    "Offer ID"
+    id: String!
+    "Variable values for formulas"
+    variables: [VariableInput]!
+}
+
+input OrderInput {
+    comments: String
+    discordLogin: String
+    email: String
+    offer: OfferInput
+    referralCode: String
+}
+
+"User review"
+input ReviewInput {
+    "Review text"
+    content: String!
+    orderId: String!
+    stars: Int!
+}
+
+"Variable value"
+input VariableInput {
+    "Variable value"
+    value: String!
+    "Variable name"
+    varname: String!
+}
+
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"The `Decimal` scalar type represents a python Decimal."
+scalar Decimal
+
+"""
+The `GenericScalar` scalar type represents a generic
+GraphQL scalar value that could be:
+String, Boolean, Int, Float, List or Object.
+"""
+scalar GenericScalar
+
+"""
+Create scalar that ignores normal serialization/deserialization, since
+that will be handled by the multipart request spec
+"""
+scalar Upload

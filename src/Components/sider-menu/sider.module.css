@@ -1,0 +1,80 @@
+.container {
+    margin-top: 0;
+    /*position: relative;*/
+    width: 1006px;
+}
+
+.title{
+    position: absolute;
+    left: 268px;
+    top: calc(50% - 74px/2 - 469px);
+
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 72px;
+    line-height: 74px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
+
+.menu {
+    background: #006D75;
+    position: absolute;
+    width: 200px;
+    color: white;
+}
+
+.siderWrap {
+    background: #006D75;
+    width: 200px;
+    height: 1121px;
+    left: 0px;
+    top: calc(50% - 1121px/2 + 12.5px);
+    boxShadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menuItem {
+    background: #00474F;
+    margin: 30px 0px;
+}
+
+
+.fortHeader {
+    position: absolute;
+    width: 1006px;
+    height: 0px;
+    left: 268px;
+    top: 207px;
+    vertical-align: middle;
+    border: 1px solid #006D75;
+}
+
+
+.fortHeader_title {
+    height: 36px;
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 36px;
+    color: #FFFFFF;
+    margin-top: 23px;
+    float: left;
+}
+
+.fortHeader_action {
+    margin-top: 30px;
+    width: 20px;
+    height: 10px;
+    left: 1330px;
+    top: 244px;
+    color: #13C2C2;
+    float: right;
+}
+
+
+
+
