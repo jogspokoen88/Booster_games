@@ -83,17 +83,19 @@ const Fortnite = () => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
 
-                            <img src={data.category.offerPicture} alt="offer"/>
+                            <div className={classes.image}>
+                                <img src={data.category.offerPicture} alt="offer"/>
+                            </div>
                             <p className={classes.fortHeader_title}>Subcategories</p>
                             {data.category.children.edges.map(({node}) => {
-                                return <ListItem key={node.id} className={classes.fortHeader_text}>
+                                return <ListItem key={node} className={classes.fortHeader_text}>
                                     {node.name}
                                 </ListItem>
                             })}
 
                             <p className={classes.fortHeader_title}>Questions</p>
                             {data.category.faq.edges.map(({node}) => {
-                                return <ListItem key={node.id} className={classes.fortHeader_text}>
+                                return <ListItem key={node} className={classes.fortHeader_text}>
                                     {node.question}
                                 </ListItem>
                             })}
