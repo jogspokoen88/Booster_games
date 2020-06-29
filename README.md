@@ -1,26 +1,4 @@
-import React, {useState} from "react";
-
-import style from "../styles/sider.module.css";
-
-import {useQuery} from "@apollo/react-hooks";
-
-import List from '@material-ui/core/List';
-
-import ListItem from "@material-ui/core/ListItem";
-
-import Collapse from "@material-ui/core/Collapse";
-
-import {makeStyles} from '@material-ui/core/styles';
-
-import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
-
-import UpOutlined from "@ant-design/icons/lib/icons/UpOutlined";
-
-import Divider from '@material-ui/core/Divider';
-
-import {gql} from "apollo-boost";
-
-import {filter} from "graphql-anywhere"
+Показан вывод данных с сервера в компонент с помощью GraphQL и Apollo
 
 const Fortnite = () => {
 
