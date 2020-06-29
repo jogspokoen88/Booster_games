@@ -1,48 +1,29 @@
-fragment Children on CategoryNodeConnection {
-    edges{
-        node{
-            name
-            faq{
-                edges{
-                    node{
-                        question
-                    }
-                }
-            }
-        }
-    }
-}
-
-fragment Offers on OfferNodeConnection {
-    edges{
-        node{
-            faq{
-                edges{
-                    node{
-                        question
-                    }
-                }
-            }
-        }
-    }
-}
-
-query Fortnite {
-    category(id: "Q2F0ZWdvcnlOb2RlOjEw", slug: "fortnite"){
-        slug
+query Game($id: String = "Q2F0ZWdvcnlOb2RlOjEw"){
+    category(id: $id){
+        offerPicture
         name
-        children{
+        offerPicture
+        children(first:6){
             ...Children
         }
-        offers{
-            ...Offers
-        }
         faq{
-            edges{
-                node{
-                    question
-                }
-            }
+            ...Faq
+        }
+    }
+}
+
+fragment Children on CategoryNodeConnection{
+    edges{
+        node{
+            id
+            name
+        }
+    }
+}
+fragment Faq on FaqNodeConnection{
+    edges{
+        node{
+            question
         }
     }
 }

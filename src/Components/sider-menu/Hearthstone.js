@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./sider.module.css";
+import style from "../styles/sider.module.css";
 
 
 const Hearthstone = () => {

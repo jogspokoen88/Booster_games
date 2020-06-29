@@ -1,8 +1,9 @@
 import React from 'react';
-import './App.css';
-import 'antd/dist/antd.css';
+import './App.less';
+import 'antd/dist/antd.less';
 import {Layout} from 'antd';
-import style from "./Components/sider-menu/sider.module.css";
+import style from "./Components/styles/sider.module.css";
+import "./Components/styles/_sider.less"
 import MenuList from "./Components/menu/menu"
 import GeneralPage from "./Components/sider-menu/general";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -23,7 +24,7 @@ const App = () => {
         <BrowserRouter>
             <div className="App">
                 <Layout className={"main-layout"}>
-                    <Sider className={style.siderWrap}>
+                    <Sider className="sider-wrap">
                         <MenuList/>
                     </Sider>
                     <Layout>
