@@ -56,48 +56,48 @@ const Fortnite = () => {
     )
 }
 
-const fragmentsChild = {
-    child: gql`
-        fragment Children on CategoryNodeConnection{
-            edges{
-                node{
-                    id
-                    name
-                }
-            }
-        }
-    `
-}
-
-const fragmentsFaq = {
-    question: gql`
-        fragment Faq on FaqNodeConnection{
-            edges{
-                node{
-                    question
-                }
-            }
-        }
-    `
-}
-
-const queryGame = gql`
-    query Game($id: String = "Q2F0ZWdvcnlOb2RlOjEw"){
-        category(id: $id){
-            offerPicture
-            name
-            offerPicture
-            children(first:6){
-                ...Children
-            }
-            faq{
-                ...Faq
-            }
-        }
-    }
-    ${fragmentsChild.child}
-    ${fragmentsFaq.question}
-`
-
+const fragmentsChild = { 
+    child: gql` 
+        fragment Children on CategoryNodeConnection{ 
+            edges{ 
+                node{ 
+                    id 
+                    name 
+                } 
+            } 
+        } 
+    ` 
+} 
+ 
+const fragmentsFaq = { 
+    question: gql` 
+        fragment Faq on FaqNodeConnection{ 
+            edges{ 
+                node{ 
+                    question 
+                } 
+            } 
+        } 
+    ` 
+} 
+ 
+const queryGame = gql` 
+    query Game($id: String = "Q2F0ZWdvcnlOb2RlOjEw"){ 
+        category(id: $id){ 
+            offerPicture 
+            name 
+            offerPicture 
+            children(first:6){ 
+                ...Children 
+            } 
+            faq{ 
+                ...Faq 
+            } 
+        } 
+    } 
+    ${fragmentsChild.child} 
+    ${fragmentsFaq.question}  
+` 
+ 
 
 export default Fortnite
